@@ -14,7 +14,7 @@ app.use('/jobs', jobsRouter)
 
 //console.log(process.env.NODE_ENV)
 
-if (print.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
     app.listen(PORT, () => {
         console.log(`servidor escuchado en http://localhost:${PORT}`);
     });

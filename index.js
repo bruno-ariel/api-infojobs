@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import jobs from "../jobs.json" with { type: "json" };
-import { DEFAULT } from "../config.js";
+import jobs from "./jobs.json" with { type: "json" };
+import { DEFAULT } from "./config.js";
 import crypto from "node:crypto";
 
 const PORT = process.env.PORT ?? DEFAULT.PORT;

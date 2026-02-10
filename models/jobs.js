@@ -8,24 +8,19 @@ export class JobModel {
             const searchTerm = text.toLocaleLowerCase();
             filteredJobs = filteredJobs.filter(
                 (job) =>
-                    job.titulo.toLocaleLowerCase().includes(searchTerm) ||
-                    job.descripcion.toLocaleLowerCase().includes(searchTerm),
-            );
+                    job.titulo.toLocaleLowerCase().includes(searchTerm) || job.descripcion.toLocaleLowerCase().includes(searchTerm)
+            )
         }
-
         if (technology) {
-            filteredJobs = filteredJobs.filter((job) =>
-                job.technology.includes(technology),
+            filteredJobs = filteredJobs.filter(job =>
+                job.tecnologias.includes(technology)
             );
         }
 
-        const limitNumber = Number(limit);
-        const offsetNumber = Number(offset);
+        const limitNumber = Number(limit)
+        const offsetNumber = Number(offset)
 
-        const paginatedJobs = filteredJobs.slice(
-            offsetNumber,
-            offsetNumber + limitNumber,
-        );
+        const paginatedJobs = filteredJobs.slice(offsetNumber, offsetNumber + limitNumber)
 
         return paginatedJobs
     }
@@ -35,7 +30,7 @@ export class JobModel {
         return job
     }
 
-    static async create ({ titulo, empresa, ubicacion, data}) {
+    static async create ({ titulo, empresa, ubicacion, data }) {
         const newJob ={
             id: crypto.randomUUID(),
             titulo,

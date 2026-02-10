@@ -1,28 +1,15 @@
 import { DEFAULT } from "../config";
 import { JobModel } from "../models/jobs";
 
+//clase con propiedades estaticas
 export class JobsController {
     static async getAll(req, res) {
-        const {
-            text,
-            title,
-            level,
-            limit = DEFAULT.LIMIT_PAGINATION,
-            technology,
-            offset = DEFAULT.LIMIT_OFFSET,
-        } = req.query;
+        const { text, title, level, limit = DEFAULT.LIMIT_PAGINATION, technology, offset = DEFAULT.LIMIT_OFFSET } = req.query
 
-        const jobs = await JobModel.getAll({ text, title, level, limit, technology, offset })
+        const paginatedJobs = await JobModel.getAll({ text, title, level, limit, technology, offset })
 
-        const limitNumber = Number(limit)
-        const offsetNumber = Number(offset)
-
-        return res.json({
-            data: jobs,
-            total: jobs.length,
-            limit: limitNumber,
-            offset: offsetNumber,
-        });
+        return res.json({ data: paginatedJobs, total: filteredJobs.length, limit: limitNumber, offset: offsetNumber,
+        })
     }
     static async getId(req, res) {
         const { id } = req.params
@@ -33,13 +20,12 @@ export class JobsController {
         }
         return res.json(job)
     }
-
     static async create(req, res) {
         const { titulo, empresa, ubicacion, data } = req.body
+
         const newJob = await JobModel.create({ titulo, empresa, ubicacion, data })
         return res.status(201).json(newJob)
     }
-    // Aqui mi codigo 
     static async update(req, res) {
         const { id } = req.params
 
@@ -51,7 +37,6 @@ export class JobsController {
         }
         return res.status(200).json(updateJob)
     }
-
     static async partialUpdate(req, res) {
         const { id } = req.params
 
@@ -64,7 +49,6 @@ export class JobsController {
         return res.status(200).json(partialUpdateJob)
 
     }
-
     static async delete(req, res) {
         const { id } = req.params
 

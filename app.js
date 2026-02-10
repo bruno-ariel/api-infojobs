@@ -7,10 +7,11 @@ const PORT = process.env.PORT ?? DEFAULT.PORT
 
 const app = express();
 
-app.use(corsMiddlewares())
+app.use(corsMiddlewares()) // <---- cors middleware
+
 app.use(express.json())
 
-app.use('/jobs', jobsRouter )
+app.use('/jobs', jobsRouter) // <---- router con todas las rutas
 
 
 if(process.env.NODE_ENV !== 'production') {

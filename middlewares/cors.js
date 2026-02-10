@@ -8,7 +8,7 @@ const ACCEPTED_ORIGINS = [
 export const  corsMiddlewares = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) =>{
     return cors({
         origin: (origin, callback) => {
-            if (acceptedOrigins.includes(origin)) {
+            if (!origin || acceptedOrigins.includes(origin)) {
                 return callback(null, true)
             }
             return callback(new Error('origen no permitido'))

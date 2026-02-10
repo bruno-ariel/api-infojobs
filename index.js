@@ -25,13 +25,6 @@ app.use(
     }),
 );
 
-app.use(express.json());
-
-// Alternativa 2 para traer un fichero
-
-// import { readFileSync } from 'node:fs'
-
-// const jobs = JSON.parse(readFileSync('./jobs.json', 'utf-8'))
 
 app.use((req, res, next) => {
     const timeString = new Date().toLocaleDateString();
@@ -40,17 +33,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// Alternativa 3 para traer un fichero solo cuando se lo necesita
-
-/* app.get('/get-jobs', async (req,res)=>{
-    const {default : jobs} = await import('./jobs.json', {with: {type: 'json'}})
-    return res.json(jobs)
-}) */
-
-// En get-single-job tenemos un parámetro DINÁMICO que recuperamos asi req.params
-// Los parametros que me esta devolviendo son cadenas de texto STRINGS
-
-// Idempotente: porque el sistema queda igual si llamas varias veces
 app.get("/jobs/:id", (req, res) => {
     const { id } = req.params;
 
@@ -173,8 +155,6 @@ app.get("/jobs", (req, res) => {
 // A diferencia de node Js nativo que teniamos que pasar la url manualmente transformarla
 // en un Objeto Search Params, express ya te lo da todo masticado en un objeto React rect.query
 
-app.listen(PORT, () => {
-    console.log(`servidor escuchado en http://localhost:${PORT}`);
 
     /* const previusHomeMiddleware = (req,res,next) =>{
             console.log('Ejecutando el middleware previo a la ruta / ')
@@ -184,4 +164,3 @@ app.listen(PORT, () => {
     /* app.get('/', previusHomeMiddleware ,(req, res)=>{
             res.send('Hello Word!')
         }) */
-});

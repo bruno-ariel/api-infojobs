@@ -1,4 +1,5 @@
 import jobs from '../jobs.json' with { type : 'json'}
+import crypto from 'node:crypto'
 
 export class JobModel {
     static async getAll({ text, title, level, limit= 10, technology, offset = 0 }) {
@@ -6,8 +7,7 @@ export class JobModel {
 
         if (text) {
             const searchTerm = text.toLocaleLowerCase();
-            filteredJobs = filteredJobs.filter(
-                (job) =>
+            filteredJobs = filteredJobs.filter(job =>
                     job.titulo.toLocaleLowerCase().includes(searchTerm) || job.descripcion.toLocaleLowerCase().includes(searchTerm)
             )
         }
@@ -26,7 +26,7 @@ export class JobModel {
     }
 
     static async getById(id) {
-        const job = jobs.find(job => job.id === id)
+        const job = jobs.find(job => job.id == id)
         return job
     }
 

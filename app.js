@@ -10,7 +10,7 @@ const app = express();
 app.use(corsMiddlewares())
 app.use(express.json())
 
-app.use('/jobs', jobsRouter  )
+app.use('/jobs', jobsRouter )
 
 
 if(process.env.NODE_ENV !== 'production') {

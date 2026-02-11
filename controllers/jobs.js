@@ -1,13 +1,18 @@
-import { JobModel } from "../models/jobs.js";
 import { DEFAULT } from "../config.js";
+import { JobModel } from "../models/jobs.js";
+
 //clase con propiedades estaticas
 export class JobsController {
     static async getAll(req, res) {
         const { text, title, level, limit = DEFAULT.LIMIT_PAGINATION, technology, offset = DEFAULT.LIMIT_OFFSET } = req.query
         
-        const paginatedJobs = await JobModel.getAll({ text, title, level, limit, technology, offset })
+        const jobs = await JobModel.getAll({ text, title, level, limit, technology, offset })
 
-        return res.json({ data: paginatedJobs})}
+        const limitNumber = Number(limit)
+        const offsetNumber = Number(offset)
+
+        return res.json({ data: jobs, total: jobs.length, limit: limitNumber, offset: offsetNumber})
+    }
     static async getId(req, res) {
         const { id } = req.params
 

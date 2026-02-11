@@ -4,7 +4,6 @@ import crypto from 'node:crypto'
 export class JobModel {
     static async getAll({ text, title, level, limit= 10, technology, offset = 0 }) {
         let filteredJobs = jobs;
-
         if (text) {
             const searchTerm = text.toLocaleLowerCase();
             filteredJobs = filteredJobs.filter(job =>
@@ -16,12 +15,11 @@ export class JobModel {
                 job.tecnologias.includes(technology)
             );
         }
-
+        
         const limitNumber = Number(limit)
         const offsetNumber = Number(offset)
 
         const paginatedJobs = filteredJobs.slice(offsetNumber, offsetNumber + limitNumber)
-
         return paginatedJobs
     }
 
